@@ -76,6 +76,7 @@ ul ul {
 
 .company-header {
     font-weight: bold;
+    font-size: 1.1rem;
     color: #2c3e50;
     margin-bottom: 0.5rem;
 }
@@ -120,6 +121,15 @@ ul ul {
 /* Team size styling */
 .team-size {
     color: #999;
+}
+
+/* Job history parent items styling */
+.company-section > ul > li {
+    font-weight: bold;
+}
+
+.company-section > ul > li ul li {
+    font-weight: normal;
 }
 
 /* Print styles */
