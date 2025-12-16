@@ -1,0 +1,15 @@
+{
+  "name": "nature-garden",
+  "version": "1.0.0",
+  "description": "AI-powered daily-growing nature garden with seasonal cycles",
+  "type": "module",
+  "scripts": {
+    "calculate-season": "node scripts/calculate-season.js",
+    "generate-day": "node scripts/generate-day.js",
+    "update-index": "node scripts/update-index.js"
+  },
+  "keywords": ["nature", "ai", "seasonal", "pixel-art"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {}
+}

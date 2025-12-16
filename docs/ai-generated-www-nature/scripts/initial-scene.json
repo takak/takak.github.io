@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "resolution": "medium",
+    "pixelSize": 4,
+    "gridWidth": 200,
+    "gridHeight": 150,
+    "baseY": 95,
+    "dayNumber": 0,
+    "cycleYear": 1,
+    "dayInCycle": 0,
+    "season": "冬",
+    "seasonEn": "Winter"
+  },
+  "permanentElements": {
+    "trees": [],
+    "rocks": [
+      {
+        "id": "rock_1",
+        "x": 30,
+        "y": 95,
+        "size": 10,
+        "shape": "rounded",
+        "mossGrowth": 0,
+        "lichenGrowth": 0,
+        "yearPlaced": 1
+      },
+      {
+        "id": "rock_2",
+        "x": 140,
+        "y": 95,
+        "size": 8,
+        "shape": "angular",
+        "mossGrowth": 0,
+        "lichenGrowth": 0,
+        "yearPlaced": 1
+      }
+    ],
+    "shrubs": [],
+    "fallenTrees": [],
+    "grassPatches": [],
+    "fungiColonies": [],
+    "nests": [],
+    "soilZones": [
+      {
+        "xRange": [10, 190],
+        "yRange": [93, 98],
+        "fertility": 0.3,
+        "organicMatter": 0.1,
+        "colorShift": 0
+      }
+    ]
+  },
+  "seasonalElements": {
+    "leaves": [],
+    "grasses": [],
+    "flowers": [],
+    "mushrooms": [],
+    "animals": []
+  },
+  "ecosystem": {
+    "maturityLevel": 0,
+    "biodiversityScore": 0.1,
+    "soilQuality": 0.3,
+    "moistureLevel": 0.4,
+    "canopyCover": 0
+  }
+}

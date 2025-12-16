@@ -1,1 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+previous-scene.json
+generated-scene.json
+current-season.json
+
+# macOS
 .DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
