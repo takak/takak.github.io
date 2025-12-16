@@ -1,0 +1,229 @@
+name: Daily Nature Growth
+
+on:
+  schedule:
+    # JST 03:00 = UTC 18:00 (前日)
+    - cron: '0 18 * * *'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  generate-daily-scene:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: ./docs/ai-generated-www-nature
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd scripts
+          npm install
+
+      - name: Calculate season
+        id: season
+        run: |
+          cd scripts
+          node calculate-season.js >> $GITHUB_OUTPUT
+
+      - name: Check if exists
+        id: check
+        run: |
+          if [ -d "days/${{ steps.season.outputs.date_string }}" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get previous scene
+        if: steps.check.outputs.exists == 'false'
+        id: previous
+        run: |
+          LATEST=$(ls -d days/*/ 2>/dev/null | sort -r | head -n 1 | sed 's:/$::')
+          if [ -z "$LATEST" ]; then
+            echo "is_first=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_first=false" >> $GITHUB_OUTPUT
+            cp "$LATEST/scene.json" previous-scene.json
+          fi
+
+      - name: Create initial scene
+        if: steps.check.outputs.exists == 'false' && steps.previous.outputs.is_first == 'true'
+        run: cp scripts/initial-scene.json previous-scene.json
+
+      - name: Generate scene with Claude Code
+        if: steps.check.outputs.exists == 'false'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          show_full_output: true
+          claude_args: |
+            --dangerously-skip-permissions
+            --model claude-opus-4-5-20251101
+          # --max-turns 30
+          # --debug
+          prompt: |
+            あなたは「永続的に成長する自然」を生成するAIです。
+
+            ## 解像度設定
+            - **4pxピクセル、200×150グリッド**の高精細ドット絵
+            - X座標: 0-200
+            - Y座標: 0-150
+            - 地面のY座標: 95
+
+            ## 現在の状態
+            - **Total Day**: ${{ steps.season.outputs.total_day }}
+            - **Cycle Year**: ${{ steps.season.outputs.cycle_year }}
+            - **Day in Cycle**: ${{ steps.season.outputs.day_in_cycle }}
+            - **Season**: ${{ steps.season.outputs.season_name }} (${{ steps.season.outputs.season_name_en }})
+            - **Phase**: ${{ steps.season.outputs.season_phase }}
+            - **Month**: ${{ steps.season.outputs.current_month }}月
+            - **Is New Year**: ${{ steps.season.outputs.is_new_year }}
+
+            ## 前日のシーン
+            previous-scene.json を読み込んでください。
+
+            ## タスク: 1日分の成長を生成
+
+            ### 1. 長期的成長（年単位）
+
+            **Is New Year が true の場合（新年の処理）:**
+
+            #### 既存の木の成長
+            - すべての木の幹と葉が1年分成長
+            - 計算式:
+              - actualHeight = baseTrunkHeight + (trunkGrowthRate × (cycleYear - yearPlanted))
+              - actualLeafRadius = baseLeafRadius + (leafRadiusGrowthRate × (cycleYear - yearPlanted))
+
+            #### 新しい要素の追加
+            - **新しい苗木**: Year 2以降は2-3年に1本、それ以前は稀に1本
+            - **低木**: Year 3以降で追加可能
+            - **鳥の巣**: Year 4以降で高い木に追加可能
+            - **キノコ**: Year 4以降でコロニー拡大
+            - **倒木**: Year 8以降で古い木が稀に倒れる可能性
+
+            #### 苔・土壌の成長
+            - 岩の苔: +0.1 (最大1.0)
+            - 古い木(樹齢5年以上)に苔が生える
+            - 土壌の肥沃度: +0.05
+
+            **Is New Year が false の場合（通常の日）:**
+            - 長期的成長要素は変更しない
+            - 季節に応じた変化のみ適用
+
+            ### 2. 季節サイクル（365日）
+
+            #### 冬 (12月〜2月) の変化
+            - 葉: ほぼ無し (radius × 0.1, density 0.1)
+            - 草: 短く枯れ色 (height × 0.3-0.5)
+            - 花: 無し
+            - キノコ: 無し
+            - 動物: 鳥のみ（少数）
+
+            #### 春 (3月〜5月) の変化
+            - 序盤(3月): 新芽が出る、草が伸び始める
+            - 中盤(4月): 花が咲き始める、木の葉が増える
+            - 終盤(5月): 満開、草が茂る
+            - 葉: radius × 0.7-1.0, 薄緑 → 緑
+            - 草: height × 0.6-1.0, 1-2本/日追加
+            - 花: 2-3輪/日追加
+            - 蝶: 出現
+
+            #### 夏 (6月〜8月) の変化
+            - 最も成長が活発
+            - 葉: フルサイズ (radius × 1.0)、濃い緑
+            - 草: 最大の高さ
+            - 花: 満開
+            - 動物: 鳥・蝶が最も活発
+
+            #### 秋 (9月〜11月) の変化
+            - 序盤(9月): 色づき始める
+            - 中盤(10月): 紅葉ピーク、キノコ出現
+            - 終盤(11月): 落葉、花が枯れる
+            - 葉: radius × 0.8-0.5, 黄色 → 赤
+            - 草: height × 0.8-0.6
+            - 花: 徐々に減る
+            - キノコ: 出現（Year 4以降）
+
+            ## データ構造（必須）
+
+            ```json
+            {
+              "metadata": {
+                "resolution": "medium",
+                "pixelSize": 4,
+                "gridWidth": 200,
+                "gridHeight": 150,
+                "baseY": 95,
+                "dayNumber": <total_day>,
+                "cycleYear": <cycle_year>,
+                "dayInCycle": <day_in_cycle>,
+                "season": "<season_ja>",
+                "seasonEn": "<season_en>"
+              },
+              "permanentElements": {
+                "trees": [...],
+                "rocks": [...],
+                "shrubs": [...],
+                "fallenTrees": [...],
+                "grassPatches": [...],
+                "fungiColonies": [...],
+                "nests": [...]
+              },
+              "seasonalElements": {
+                "leaves": [...],
+                "grasses": [...],
+                "flowers": [...],
+                "mushrooms": [...],
+                "animals": [...]
+              },
+              "ecosystem": {
+                "maturityLevel": ...,
+                "biodiversityScore": ...,
+                "soilQuality": ...,
+                "moistureLevel": ...,
+                "canopyCover": ...
+              }
+            }
+            ```
+
+            ## 重要な制約
+            1. 急激な変化を避ける（1日あたりの変化は小さく）
+            2. 座標は0-200, 0-150の範囲内
+            3. 要素の重なりを避ける（3-5px spacing）
+            4. JSONのみ出力（マークダウン記法や説明文は不要）
+            5. 出力は valid JSON のみ
+
+            ## 実行手順
+            1. previous-scene.json を読み込む
+            2. 上記ルールに従って新しいシーンを生成
+            3. generated-scene.json に書き出す
+            4. mkdir -p "days/${{ steps.season.outputs.date_string }}"
+            5. mv generated-scene.json "days/${{ steps.season.outputs.date_string }}/scene.json"
+            6. cd scripts && node create-day-page.js "${{ steps.season.outputs.date_string }}"
+            7. cd scripts && node update-index.js
+
+      - name: Commit
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "🌱 Day ${{ steps.season.outputs.total_day }}: ${{ steps.season.outputs.season_emoji }} ${{ steps.season.outputs.season_name }}" || echo "No changes to commit"
+          git push
