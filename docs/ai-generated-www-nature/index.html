@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Day 14</title>
+  <title>Day 15</title>
   <style>
     body {
       margin: 0;
@@ -108,7 +108,7 @@
 </head>
 <body>
   <div class="header">
-    <h1>Day 14</h1>
+    <h1>Day 15</h1>
   </div>
   
   <div class="main-canvas-container">
@@ -121,15 +121,18 @@
       <button id="first">⏮️ 最初</button>
       <button id="prev">⏪ 前</button>
       <button id="play">▶️ 再生</button>
-      <input type="range" id="slider" min="1" max="14" value="14">
+      <input type="range" id="slider" min="1" max="15" value="15">
       <button id="next">⏩ 次</button>
       <button id="latest">⏭️ 最新</button>
-      <span id="current-day">Day 14</span>
+      <span id="current-day">Day 15</span>
     </div>
   </div>
   
   <div class="day-list">
     <h2 style="color: #6c6; text-align: center;">📅 全ての日</h2>
+    <a href="days/2026-01-15/index.html" class="day-link">
+        冬 Day 15 - 2026-01-15
+      </a>
     <a href="days/2026-01-14/index.html" class="day-link">
         冬 Day 14 - 2026-01-14
       </a>
@@ -178,11 +181,11 @@
   <script src="shared/nature-engine.js"></script>
   <script src="shared/timeline.js"></script>
   <script>
-    const latestScene = {"metadata":{"resolution":"medium","pixelSize":4,"gridWidth":200,"gridHeight":150,"baseY":95,"dayNumber":14,"cycleYear":1,"dayInCycle":14,"season":"冬","seasonEn":"Winter"},"permanentElements":{"trees":[{"id":"tree_1","x":80,"y":95,"yearPlanted":1,"species":"oak","baseTrunkHeight":8,"trunkGrowthRate":3,"baseLeafRadius":6,"leafRadiusGrowthRate":2,"trunkWidth":3,"health":1,"hasMoss":false}],"rocks":[{"id":"rock_1","x":30,"y":95,"size":10,"shape":"rounded","mossGrowth":0.1,"lichenGrowth":0,"yearPlaced":1},{"id":"rock_2","x":140,"y":95,"size":8,"shape":"angular","mossGrowth":0.1,"lichenGrowth":0,"yearPlaced":1}],"shrubs":[],"fallenTrees":[],"grassPatches":[{"id":"grass_patch_1","xRange":[50,110],"baseY":95,"density":0.3}],"fungiColonies":[],"nests":[],"soilZones":[{"xRange":[10,190],"yRange":[93,98],"fertility":0.35,"organicMatter":0.1,"colorShift":0}]},"seasonalElements":{"leaves":[{"treeId":"tree_1","currentRadius":0.6,"density":0.1,"color":"#453223"}],"grasses":[{"id":"grass_1","x":55,"y":95,"height":2,"color":"#867050"},{"id":"grass_2","x":62,"y":95,"height":3,"color":"#856e50"},{"id":"grass_3","x":70,"y":95,"height":2,"color":"#867050"},{"id":"grass_4","x":90,"y":95,"height":3,"color":"#856e50"},{"id":"grass_5","x":100,"y":95,"height":2,"color":"#867050"},{"id":"grass_6","x":105,"y":95,"height":2,"color":"#877052"}],"flowers":[],"mushrooms":[],"animals":[{"id":"bird_1","type":"sparrow","x":82,"y":72,"behavior":"perching"}]},"ecosystem":{"maturityLevel":0.05,"biodiversityScore":0.15,"soilQuality":0.35,"moistureLevel":0.53,"canopyCover":0.02}};
+    const latestScene = {"metadata":{"resolution":"medium","pixelSize":4,"gridWidth":200,"gridHeight":150,"baseY":95,"dayNumber":15,"cycleYear":1,"dayInCycle":15,"season":"冬","seasonEn":"Winter"},"permanentElements":{"trees":[{"id":"tree_1","x":80,"y":95,"yearPlanted":1,"species":"oak","baseTrunkHeight":8,"trunkGrowthRate":3,"baseLeafRadius":6,"leafRadiusGrowthRate":2,"trunkWidth":3,"health":1,"hasMoss":false}],"rocks":[{"id":"rock_1","x":30,"y":95,"size":10,"shape":"rounded","mossGrowth":0.1,"lichenGrowth":0,"yearPlaced":1},{"id":"rock_2","x":140,"y":95,"size":8,"shape":"angular","mossGrowth":0.1,"lichenGrowth":0,"yearPlaced":1}],"shrubs":[],"fallenTrees":[],"grassPatches":[{"id":"grass_patch_1","xRange":[50,110],"baseY":95,"density":0.3}],"fungiColonies":[],"nests":[],"soilZones":[{"xRange":[10,190],"yRange":[93,98],"fertility":0.35,"organicMatter":0.1,"colorShift":0}]},"seasonalElements":{"leaves":[{"treeId":"tree_1","currentRadius":0.6,"density":0.1,"color":"#453223"}],"grasses":[{"id":"grass_1","x":55,"y":95,"height":2,"color":"#867050"},{"id":"grass_2","x":62,"y":95,"height":3,"color":"#856e50"},{"id":"grass_3","x":70,"y":95,"height":2,"color":"#867050"},{"id":"grass_4","x":90,"y":95,"height":3,"color":"#856e50"},{"id":"grass_5","x":100,"y":95,"height":2,"color":"#867050"},{"id":"grass_6","x":105,"y":95,"height":2,"color":"#877052"}],"flowers":[],"mushrooms":[],"animals":[{"id":"bird_1","type":"sparrow","x":78,"y":70,"behavior":"perching"}]},"ecosystem":{"maturityLevel":0.05,"biodiversityScore":0.15,"soilQuality":0.35,"moistureLevel":0.54,"canopyCover":0.02}};
     const engine = new NatureEngine('nature', latestScene);
     engine.start();
     
-    const timeline = new Timeline(engine, ["2026-01-01","2026-01-02","2026-01-03","2026-01-04","2026-01-05","2026-01-06","2026-01-07","2026-01-08","2026-01-09","2026-01-10","2026-01-11","2026-01-12","2026-01-13","2026-01-14"]);
+    const timeline = new Timeline(engine, ["2026-01-01","2026-01-02","2026-01-03","2026-01-04","2026-01-05","2026-01-06","2026-01-07","2026-01-08","2026-01-09","2026-01-10","2026-01-11","2026-01-12","2026-01-13","2026-01-14","2026-01-15"]);
   </script>
 </body>
 </html>
