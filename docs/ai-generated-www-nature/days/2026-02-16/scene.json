@@ -1,0 +1,147 @@
+{
+  "metadata": {
+    "resolution": "medium",
+    "pixelSize": 4,
+    "gridWidth": 200,
+    "gridHeight": 150,
+    "baseY": 95,
+    "dayNumber": 47,
+    "cycleYear": 1,
+    "dayInCycle": 47,
+    "season": "冬",
+    "seasonEn": "Winter"
+  },
+  "permanentElements": {
+    "trees": [
+      {
+        "id": "tree_1",
+        "x": 80,
+        "y": 95,
+        "yearPlanted": 1,
+        "species": "oak",
+        "baseTrunkHeight": 8,
+        "trunkGrowthRate": 3,
+        "baseLeafRadius": 6,
+        "leafRadiusGrowthRate": 2,
+        "trunkWidth": 3,
+        "health": 1.0,
+        "hasMoss": false
+      }
+    ],
+    "rocks": [
+      {
+        "id": "rock_1",
+        "x": 30,
+        "y": 95,
+        "size": 10,
+        "shape": "rounded",
+        "mossGrowth": 0.1,
+        "lichenGrowth": 0,
+        "yearPlaced": 1
+      },
+      {
+        "id": "rock_2",
+        "x": 140,
+        "y": 95,
+        "size": 8,
+        "shape": "angular",
+        "mossGrowth": 0.1,
+        "lichenGrowth": 0,
+        "yearPlaced": 1
+      }
+    ],
+    "shrubs": [],
+    "fallenTrees": [],
+    "grassPatches": [
+      {
+        "id": "grass_patch_1",
+        "xRange": [50, 110],
+        "baseY": 95,
+        "density": 0.3
+      }
+    ],
+    "fungiColonies": [],
+    "nests": [],
+    "soilZones": [
+      {
+        "xRange": [10, 190],
+        "yRange": [93, 98],
+        "fertility": 0.35,
+        "organicMatter": 0.1,
+        "colorShift": 0
+      }
+    ]
+  },
+  "seasonalElements": {
+    "leaves": [
+      {
+        "treeId": "tree_1",
+        "currentRadius": 0.6,
+        "density": 0.1,
+        "color": "#3d2e1e"
+      }
+    ],
+    "grasses": [
+      {
+        "id": "grass_1",
+        "x": 55,
+        "y": 95,
+        "height": 2,
+        "color": "#867050"
+      },
+      {
+        "id": "grass_2",
+        "x": 62,
+        "y": 95,
+        "height": 3,
+        "color": "#856e50"
+      },
+      {
+        "id": "grass_3",
+        "x": 70,
+        "y": 95,
+        "height": 2,
+        "color": "#867050"
+      },
+      {
+        "id": "grass_4",
+        "x": 90,
+        "y": 95,
+        "height": 3,
+        "color": "#856e50"
+      },
+      {
+        "id": "grass_5",
+        "x": 100,
+        "y": 95,
+        "height": 2,
+        "color": "#867050"
+      },
+      {
+        "id": "grass_6",
+        "x": 105,
+        "y": 95,
+        "height": 2,
+        "color": "#877052"
+      }
+    ],
+    "flowers": [],
+    "mushrooms": [],
+    "animals": [
+      {
+        "id": "bird_1",
+        "type": "sparrow",
+        "x": 85,
+        "y": 72,
+        "behavior": "perching"
+      }
+    ]
+  },
+  "ecosystem": {
+    "maturityLevel": 0.05,
+    "biodiversityScore": 0.15,
+    "soilQuality": 0.35,
+    "moistureLevel": 0.70,
+    "canopyCover": 0.02
+  }
+}
