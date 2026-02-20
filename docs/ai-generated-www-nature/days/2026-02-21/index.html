@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 52: ❄️ 冬</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h1 {
+      color: #6c6;
+      text-shadow: 0 0 10px #6c6;
+    }
+    .info {
+      background: #16213e;
+      border: 2px solid #0f3460;
+      border-radius: 10px;
+      padding: 15px 25px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    canvas {
+      border: 3px solid #0f3460;
+      background: #000;
+      box-shadow: 0 0 30px rgba(108, 198, 108, 0.3);
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+    .nav {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .nav a {
+      background: #16213e;
+      color: #6c6;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      border: 2px solid #0f3460;
+    }
+    .nav a:hover {
+      background: #0f3460;
+    }
+  </style>
+</head>
+<body>
+  <div class="info">
+    <div>2026-02-21 | ❄️ 冬 (終盤) | Year 1</div>
+  </div>
+
+  <canvas id="nature" width="800" height="600"></canvas>
+
+  <div class="nav">
+    <a href="../../index.html">← ホーム</a>
+  </div>
+
+  <script src="../../shared/season-colors.js"></script>
+  <script src="../../shared/nature-engine.js"></script>
+  <script>
+    const sceneData = {"metadata":{"resolution":"medium","pixelSize":4,"gridWidth":200,"gridHeight":150,"baseY":95,"dayNumber":52,"cycleYear":1,"dayInCycle":52,"season":"冬","seasonEn":"Winter"},"permanentElements":{"trees":[{"id":"tree_1","x":80,"y":95,"yearPlanted":1,"species":"oak","baseTrunkHeight":8,"trunkGrowthRate":3,"baseLeafRadius":6,"leafRadiusGrowthRate":2,"trunkWidth":3,"health":1,"hasMoss":false}],"rocks":[{"id":"rock_1","x":30,"y":95,"size":10,"shape":"rounded","mossGrowth":0.1,"lichenGrowth":0,"yearPlaced":1},{"id":"rock_2","x":140,"y":95,"size":8,"shape":"angular","mossGrowth":0.1,"lichenGrowth":0,"yearPlaced":1}],"shrubs":[],"fallenTrees":[],"grassPatches":[{"id":"grass_patch_1","xRange":[50,110],"baseY":95,"density":0.3}],"fungiColonies":[],"nests":[],"soilZones":[{"xRange":[10,190],"yRange":[93,98],"fertility":0.35,"organicMatter":0.1,"colorShift":0}]},"seasonalElements":{"leaves":[{"treeId":"tree_1","currentRadius":0.6,"density":0.1,"color":"#3d2e1e"}],"grasses":[{"id":"grass_1","x":55,"y":95,"height":2,"color":"#867050"},{"id":"grass_2","x":62,"y":95,"height":3,"color":"#856e50"},{"id":"grass_3","x":70,"y":95,"height":2,"color":"#867050"},{"id":"grass_4","x":90,"y":95,"height":3,"color":"#856e50"},{"id":"grass_5","x":100,"y":95,"height":2,"color":"#867050"},{"id":"grass_6","x":105,"y":95,"height":2,"color":"#877052"}],"flowers":[],"mushrooms":[],"animals":[{"id":"bird_1","type":"sparrow","x":82,"y":68,"behavior":"perching"}]},"ecosystem":{"maturityLevel":0.05,"biodiversityScore":0.15,"soilQuality":0.35,"moistureLevel":0.7,"canopyCover":0.02}};
+    const engine = new NatureEngine('nature', sceneData);
+    engine.start();
+  </script>
+</body>
+</html>
